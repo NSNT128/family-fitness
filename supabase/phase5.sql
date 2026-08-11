@@ -100,6 +100,13 @@ begin
 end;
 $$ language plpgsql;
 
+-- Postgres grants EXECUTE on new functions to PUBLIC by default. This one is
+-- SECURITY DEFINER, so it bypasses RLS internally — leaving it callable would let
+-- any signed-in user invoke it against another user's id. It only ever recomputes
+-- correct values and returns void, so nothing leaks, but the triggers below are
+-- the only caller that needs it.
+revoke execute on function recalculate_exercise_pr(uuid, text) from public;
+
 -- Wrapper trigger function. Trigger functions can't take arguments the way a
 -- normal function does — they receive NEW/OLD implicitly — so this reads the row
 -- and calls the recalc helper. On an edit that renames the exercise (or moves it

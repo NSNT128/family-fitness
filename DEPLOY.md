@@ -61,3 +61,25 @@ actually protects each person's data (verified with a 10-point test).
 
 The key you must **never** share or put in the app is the `service_role` key
 from the Supabase dashboard. We don't use it anywhere.
+
+## Security headers
+
+`vercel.json` sets a Content-Security-Policy plus `X-Frame-Options: DENY`,
+`X-Content-Type-Options: nosniff`, `Referrer-Policy` and `Permissions-Policy`.
+These are applied by Vercel at the edge, so they only take effect on a deployed
+build — `npm run dev` won't show them.
+
+The CSP allows `'unsafe-inline'` for scripts and styles. That is deliberate:
+`index.html` carries a small inline script that applies the saved theme before
+first paint (without it the app flashes the wrong theme), and Tailwind injects
+styles inline. Pinning a hash instead would silently break whenever that script
+changed. Even with `'unsafe-inline'`, the policy still blocks script loads from
+any other origin, framing (`frame-ancestors 'none'`), plugins (`object-src
+'none'`), and form posts to third parties — and `connect-src` limits network
+calls to this origin and Supabase.
+
+After deploying, confirm the headers are live:
+
+```bash
+curl -sSI https://<your-app>.vercel.app/ | grep -i "content-security-policy\|x-frame-options"
+```

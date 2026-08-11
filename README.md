@@ -119,7 +119,7 @@ npm install
 ```
 
 Create a Supabase project, then run the SQL files in [`supabase/`](supabase/) in
-order (`phase1` → `phase9`) in the Supabase SQL Editor. Each is commented and safe
+order (`phase1` → `phase10`) in the Supabase SQL Editor. Each is commented and safe
 to re-run.
 
 Copy the env template and fill in your own project values:

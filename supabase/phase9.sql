@@ -38,7 +38,11 @@ drop policy if exists "Delete own cardio" on public.cardio_logs;
 
 create policy "Read own cardio"   on public.cardio_logs for select using (user_id = auth.uid());
 create policy "Insert own cardio" on public.cardio_logs for insert with check (user_id = auth.uid());
-create policy "Update own cardio" on public.cardio_logs for update using (user_id = auth.uid());
+-- WITH CHECK is spelled out rather than relying on Postgres reusing USING for it.
+-- Same result today, but it keeps the row you can write pinned to you even if the
+-- USING clause is ever loosened.
+create policy "Update own cardio" on public.cardio_logs for update
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy "Delete own cardio" on public.cardio_logs for delete using (user_id = auth.uid());
 
 create index if not exists cardio_logs_user_date_idx
