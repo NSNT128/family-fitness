@@ -10,6 +10,40 @@ at the database level, not in the UI.
 
 ---
 
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/screenshots/log-workout.png" alt="Choosing a workout day" width="230"><br>
+      <sub><b>Pick a day</b><br>Your active split, plus cardio</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/screenshots/log-day.png" alt="Logging a workout, showing last session's numbers" width="230"><br>
+      <sub><b>Log a session</b><br>Per-set entry, prefilled from last time</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/screenshots/personal-records.png" alt="Personal records grouped by muscle" width="230"><br>
+      <sub><b>Personal records</b><br>Grouped by body area, computed by trigger</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/bodyweight.png" alt="Bodyweight tracking with goal and trend chart" width="230"><br>
+      <sub><b>Bodyweight</b><br>Progress toward a goal, with trend</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/profile.png" alt="Profile with height, starting, current and goal weight" width="230"><br>
+      <sub><b>Profile</b><br>Current weight and progress at a glance</sub>
+    </td>
+    <td></td>
+  </tr>
+</table>
+
+<sub>Captured from a demo account with sample data.</sub>
+
+---
+
 ## Features
 
 - **Workout logging** — build a split (Push/Pull/Legs, Upper/Lower, or your own),
