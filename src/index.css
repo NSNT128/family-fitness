@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: toggling `.dark` on <html> flips the theme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-50: #eef7ff;
+  --color-brand-100: #d9edff;
+  --color-brand-200: #bce0ff;
+  --color-brand-300: #8ecdff;
+  --color-brand-400: #59b0ff;
+  --color-brand-500: #338eff;
+  --color-brand-600: #1b6ef5;
+  --color-brand-700: #1458e1;
+  --color-brand-800: #1747b6;
+  --color-brand-900: #193f8f;
+  --color-brand-950: #142857;
+
+  /* Card surface (bg-surface) and the always-dark stat panel (bg-panel). */
+  --color-surface: #ffffff;
+  --color-panel: #111827;
+}
+
+/*
+ * Dark theme. Rather than sprinkle `dark:` on every element, we re-point the
+ * neutral ramp + light accent tints under `.dark`, so existing utilities
+ * (bg-gray-50, text-gray-900, border-gray-200, bg-green-50 …) flip in place and
+ * screens we don't touch still theme correctly. `white`, `black` and the brand
+ * ramp are left alone so button text, modal scrims and brand fills stay put.
+ */
+.dark {
+  --color-surface: #191f2e;
+
+  --color-gray-50: #0f1420;
+  --color-gray-100: #232a3a;
+  --color-gray-200: #2e3646;
+  --color-gray-300: #3d475b;
+  --color-gray-400: #8b94a6;
+  --color-gray-500: #a0a9bb;
+  --color-gray-600: #b8c0d0;
+  --color-gray-700: #d0d7e2;
+  --color-gray-800: #e6eaf1;
+  --color-gray-900: #f4f6fa;
+  --color-gray-950: #fafbfc;
+
+  --color-brand-50: #12233d;
+  --color-brand-100: #16305a;
+
+  --color-green-50: #0f2a1e;
+  --color-green-100: #123a28;
+  --color-green-600: #34d17f;
+  --color-green-700: #4ade80;
+  --color-green-800: #86efac;
+
+  --color-red-50: #2a1418;
+  --color-red-600: #f87171;
+  --color-red-700: #fca5a5;
+
+  --color-amber-50: #2a2010;
+  --color-amber-800: #fcd34d;
+
+  --color-orange-50: #2a1c0e;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+  overscroll-behavior-y: none;
+  /* Native-app feel: tapping a label shouldn't select the word or pop up the
+     Android/iOS "search / copy" callout. Inputs re-enable selection below. */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Keep text editable/selectable where it's actually text the user works with. */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+/* Room for the fixed bottom nav + iPhone home indicator */
+.pb-nav {
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+}
+
+.bottom-nav-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ── PR celebration ───────────────────────────────────────────────────────── */
+.pr-pop {
+  animation: pr-pop 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28) both;
+}
+@keyframes pr-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pr-confetti {
+  position: absolute;
+  top: -5%;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0;
+  animation-name: pr-confetti;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+}
+@keyframes pr-confetti {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(105vh) rotate(540deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pr-pop,
+  .pr-confetti {
+    animation: none;
+  }
+  .pr-confetti {
+    display: none;
+  }
+}
